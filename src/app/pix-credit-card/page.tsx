@@ -3,13 +3,12 @@
 import { createStaticPix, hasError } from "pix-utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ArrowUp, ChevronUp, Circle, Copy } from "lucide-react";
+import { ChevronUp, Circle, Copy } from "lucide-react";
 import PaymentTerm from "@/components/PaymentTerm";
 import Link from "next/link";
-
+import logo from "../assets/Logo.svg";
+import payment from "../assets/payment.svg";
 export default function PaymentMethod() {
-  const [installments, setInstallments] = useState<number | null>(null);
-  const [value, setValue] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [totalInstallments, setTotalInstallments] = useState(0);
   const [copySuccess, setCopySuccess] = useState("");
@@ -77,7 +76,7 @@ export default function PaymentMethod() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8 bg-white">
-      <Image src="/logo.svg" alt="Woovi Logo" width={123} height={36} />
+      <Image src={logo} alt="Woovi Logo" width={123} height={36} />
       {totalInstallments > 0 ? (
         <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
           João, pague a entrada de
@@ -90,9 +89,11 @@ export default function PaymentMethod() {
         </span>
       )}
       <div className="rounded-lg border-2 border-[#03d69d] p-1">
-        <img
-          alt="QR Code"
+        <Image
           src={`https://gerarqrcodepix.com.br/api/v1?nome=${name}&cidade=${city}&saida=qr&chave=${key}&valor=${half}`}
+          alt="QR Code"
+          width={300}
+          height={300}
         />
       </div>
       <div className="flex flex-col items-center gap-2">
@@ -193,7 +194,7 @@ export default function PaymentMethod() {
         </span>
       </div>
       <Image
-        src="/payment.svg"
+        src={payment}
         alt="Payment Illustration"
         width={250}
         height={36}

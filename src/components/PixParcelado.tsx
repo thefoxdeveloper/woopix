@@ -1,7 +1,8 @@
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { CheckCircle, Circle, CircleCheck } from "lucide-react";
 import { useEffect } from "react";
-
+import logo from "../assets/Logo.svg";
+import payment from "../assets/payment.svg";
 type PixInstallmentProps = {
   value: number;
   discount: number;

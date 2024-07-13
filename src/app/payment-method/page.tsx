@@ -3,10 +3,11 @@
 import PixOne from "@/components/PixOne";
 import PixInstallments from "@/components/PixParcelado";
 import * as RadioGroup from "@radix-ui/react-radio-group";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import logo from "../assets/Logo.svg";
+import payment from "../assets/payment.svg";
 
 export default function PaymentMethod() {
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -40,7 +41,7 @@ export default function PaymentMethod() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8 bg-white">
-      <Image src="/logo.svg" alt="Woovi Logo" width={123} height={36} />
+      <Image src={logo} alt="Woovi Logo" width={123} height={36} />
 
       <span className="text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
         João, como você quer pagar?
@@ -82,7 +83,7 @@ export default function PaymentMethod() {
         </button>
       </Link>
 
-      <Image src="/payment.svg" alt="Woovi Logo" width={250} height={36} />
+      <Image src={payment} alt="Woovi Logo" width={250} height={36} />
     </main>
   );
 }

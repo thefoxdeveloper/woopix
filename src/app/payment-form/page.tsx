@@ -7,7 +7,8 @@ import PaymentTerm from "@/components/PaymentTerm";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import useMaskInput, { useHookFormMask } from "use-mask-input";
+import logo from "../assets/Logo.svg";
+import payment from "../assets/payment.svg";
 
 const schema = z.object({
   nome: z.string().min(1, "Nome completo é obrigatório"),
@@ -151,7 +152,7 @@ export default function PaymentForm() {
       >
         <div className="text-base"> PAGO COM SUCESSO</div>
       </div>
-      <Image src="/logo.svg" alt="Woovi Logo" width={123} height={36} />
+      <Image src={logo} alt="Woovi Logo" width={123} height={36} />
       {totalInstallments > 0 ? (
         <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
           João, pague a segunda parte de
@@ -384,7 +385,7 @@ export default function PaymentForm() {
         </span>
       </div>
       <Image
-        src="/payment.svg"
+        src={payment}
         alt="Payment Illustration"
         width={250}
         height={36}
