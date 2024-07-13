@@ -1,5 +1,6 @@
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { CheckCircle, Circle, CircleCheck } from "lucide-react";
+import { useEffect } from "react";
 
 type PixOneProps = { value: number; cashback: number; isSelected: boolean };
 
@@ -14,14 +15,16 @@ export default function PixOne({ value, cashback, isSelected }: PixOneProps) {
     currency: "BRL",
   });
 
-  if (isSelected) {
-    sessionStorage.setItem(
-      "selectedItem",
-      JSON.stringify({ total: valueFormatted })
-    );
-  }
+  useEffect(() => {
+    if (isSelected) {
+      sessionStorage.setItem(
+        "selectedItem",
+        JSON.stringify({ total: valueFormatted })
+      );
+    }
 
-  sessionStorage.setItem("installments", JSON.stringify({ quantity: 0 }));
+    sessionStorage.setItem("installments", JSON.stringify({ quantity: 0 }));
+  }, [isSelected, valueFormatted]);
 
   return (
     <div

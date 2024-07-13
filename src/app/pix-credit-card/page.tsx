@@ -30,20 +30,20 @@ export default function PaymentMethod() {
         const data = JSON.parse(storedValue);
         setTotalValue(parseCurrencyBR(data.total));
       }
-      setDeadline(PaymentTerm());
     };
 
     fetchSessionData();
+    setDeadline(PaymentTerm());
   }, []);
 
   function parseCurrencyBR(formattedValue: string) {
-    let unformattedValue = formattedValue
-      .replace(/\s+/g, "")
-      .replace("R$", "")
-      .replace(/\./g, "")
-      .replace(",", ".");
-
-    return parseFloat(unformattedValue);
+    return parseFloat(
+      formattedValue
+        .replace(/\s+/g, "")
+        .replace("R$", "")
+        .replace(/\./g, "")
+        .replace(",", ".")
+    );
   }
 
   function formatToCurrencyBR(number: number | bigint) {
@@ -65,10 +65,8 @@ export default function PaymentMethod() {
     transactionAmount: half,
     infoAdicional: "2c1b951f356c4680b13ba1c9fc889c47",
   });
-  let brCode = "";
-  if (!hasError(pix)) {
-    brCode = pix.toBRCode();
-  }
+
+  const brCode = !hasError(pix) ? pix.toBRCode() : "";
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(brCode).then(() => {
@@ -83,7 +81,7 @@ export default function PaymentMethod() {
       {totalInstallments > 0 ? (
         <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
           João, pague a entrada de
-          <span>{formatToCurrencyBR(half)}</span> pelo Pix )
+          <span>{formatToCurrencyBR(half)}</span> pelo Pix
         </span>
       ) : (
         <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
@@ -115,25 +113,38 @@ export default function PaymentMethod() {
 
       <div className="flex flex-col items-center gap-2 w-full">
         {totalInstallments > 1 ? (
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-row items-center gap-2">
-              <span>
+          <>
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row items-center gap-2">
                 <Circle color="#03d69d" />
-              </span>
-              <span className="font-semibold text-base">1ª entrada no Pix</span>
+                <span className="font-semibold text-base">
+                  1ª entrada no Pix
+                </span>
+              </div>
+              <div>
+                <span className="font-extrabold text-base">
+                  {formatToCurrencyBR(half)}
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="font-extrabold text-base">
-                {formatToCurrencyBR(half)}
-              </span>
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-row items-center gap-2">
+                <Circle color="#B2B2B2" />
+                <span className="font-semibold text-base">
+                  Restante no cartão
+                </span>
+              </div>
+              <div>
+                <span className="font-extrabold text-base">
+                  {formatToCurrencyBR(half)}
+                </span>
+              </div>
             </div>
-          </div>
+          </>
         ) : (
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-row items-center gap-2">
-              <span>
-                <Circle color="#03d69d" />
-              </span>
+              <Circle color="#03d69d" />
               <span className="font-semibold text-base">Pagar tudo no pix</span>
             </div>
             <div>
@@ -143,28 +154,11 @@ export default function PaymentMethod() {
             </div>
           </div>
         )}
-        {totalInstallments > 1 && (
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-row items-center gap-2">
-              <span>
-                <Circle color="#B2B2B2" />
-              </span>
-              <span className="font-semibold text-base">
-                Restante no cartão
-              </span>
-            </div>
-            <div>
-              <span className="font-extrabold text-base">
-                {formatToCurrencyBR(half)}
-              </span>
-            </div>
-          </div>
-        )}
       </div>
+
       <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
       {totalInstallments > 1 && (
         <>
-          {" "}
           <div className="w-full p-1 flex flex-row justify-between items-center">
             <span className="font-semibold text-xs">CET: 0.5%</span>
             <span className="font-semibold text-base">
@@ -182,19 +176,12 @@ export default function PaymentMethod() {
         </span>
       </div>
       <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
-      {totalInstallments > 1 ? (
+      {totalInstallments > 1 && (
         <Link href={`/payment-form`}>
-          <button
-            className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg
-     border-[#17a17d]
-      border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-      active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
-          >
+          <button className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg border-[#17a17d] border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
             Seguir para o cartão
           </button>
         </Link>
-      ) : (
-        ""
       )}
 
       <div className="w-full p-1 flex flex-col justify-between items-center">

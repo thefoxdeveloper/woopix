@@ -1,5 +1,6 @@
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { CheckCircle, Circle, CircleCheck } from "lucide-react";
+import { useEffect } from "react";
 
 type PixInstallmentProps = {
   value: number;
@@ -38,16 +39,18 @@ export default function PixInstallment({
     currency: "BRL",
   });
 
-  if (isSelected) {
-    sessionStorage.setItem(
-      "selectedItem",
-      JSON.stringify({ total: totalDiscountFormatted })
-    );
-    sessionStorage.setItem(
-      "installments",
-      JSON.stringify({ quantity: installments })
-    );
-  }
+  useEffect(() => {
+    if (isSelected) {
+      sessionStorage.setItem(
+        "selectedItem",
+        JSON.stringify({ total: totalDiscountFormatted })
+      );
+      sessionStorage.setItem(
+        "installments",
+        JSON.stringify({ quantity: installments })
+      );
+    }
+  }, [isSelected, totalDiscountFormatted, installments]);
 
   return (
     <div
@@ -71,22 +74,19 @@ export default function PixInstallment({
             {index + 2}x
           </span>
           <span className="text-[#4D4D4D] font-semibold text-2xl">
-            {valueAfterDiscount === 0 ? (
-              <div>{valueFormatted}</div>
-            ) : (
-              <div>{valueAfterDiscountFormatted}</div>
-            )}
+            {valueAfterDiscountFormatted}
           </span>
         </span>
-        <RadioGroup.Item value={index.toString()} id={totalDiscountFormatted}>
-          {!isSelected ? <Circle className="w-6 h-6 text-gray-200" /> : ""}
-          <RadioGroup.Indicator className="w-8 h-8 rounded-full">
-            {isSelected ? (
-              <CircleCheck className="w-6 h-6 text-white bg-[#03D69D] rounded-full" />
-            ) : (
-              <Circle className="w-6 h-6 text-gray-500" />
-            )}
-          </RadioGroup.Indicator>
+        <RadioGroup.Item value={index.toString()}>
+          <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-[#E5E5E5]">
+            <RadioGroup.Indicator className="w-6 h-6 rounded-full flex items-center justify-center">
+              {isSelected ? (
+                <CircleCheck className="w-6 h-6 text-white bg-[#03D69D] rounded-full" />
+              ) : (
+                <Circle className="w-6 h-6 text-gray-200" />
+              )}
+            </RadioGroup.Indicator>
+          </div>
         </RadioGroup.Item>
       </div>
       <div className="w-full h-full justify-between flex items-center">
@@ -97,7 +97,7 @@ export default function PixInstallment({
           </span>
         </span>
       </div>
-      {discount > 0 ? (
+      {discount > 0 && (
         <div className="justify-between flex items-center">
           <div className="bg-[#133A6F] rounded-md h-8 w-full flex items-center p-2 mt-2 relative">
             <div className="w-0 h-0 border-t-[20px] border-b-[20px] border-r-[24px] border-transparent border-r-white absolute -right-1"></div>
@@ -107,8 +107,6 @@ export default function PixInstallment({
             </span>
           </div>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );
