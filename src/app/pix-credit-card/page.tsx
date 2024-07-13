@@ -76,130 +76,134 @@ export default function PaymentMethod() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8 bg-white">
-      <Image src={logo} alt="Woovi Logo" width={123} height={36} />
-      {totalInstallments > 0 ? (
-        <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
-          João, pague a entrada de
-          <span>{formatToCurrencyBR(half)}</span> pelo Pix
-        </span>
-      ) : (
-        <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
-          João, pague o valor de
-          <span>{formatToCurrencyBR(totalValue)}</span> pelo Pix
-        </span>
-      )}
-      <div className="rounded-lg border-2 border-[#03d69d] p-1">
-        <Image
-          src={`https://gerarqrcodepix.com.br/api/v1?nome=${name}&cidade=${city}&saida=qr&chave=${key}&valor=${half}`}
-          alt="QR Code"
-          width={300}
-          height={300}
-        />
-      </div>
-      <div className="flex flex-col items-center gap-2">
-        {copySuccess && <span className="text-green-600">{copySuccess}</span>}
-        <button
-          onClick={copyToClipboard}
-          className="mt-4 p-2 bg-[#133A6F] text-white rounded-lg w-fit flex flex-row text-lg"
-        >
-          Clique para copiar QR CODE <Copy className="ml-2" />
-        </button>
-        <div className="flex flex-col justify-center items-center">
-          <span className="font-semibold text-base text-[#B2B2B2]">
-            Prazo de pagamento:
+      <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
+        <Image src={logo} alt="Woovi Logo" width={123} height={36} />
+        {totalInstallments > 0 ? (
+          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+            João, pague a entrada de
+            <span>{formatToCurrencyBR(half)}</span> pelo Pix
           </span>
-          <span className="font-semibold text-base">{deadline}</span>
+        ) : (
+          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+            João, pague o valor de
+            <span>{formatToCurrencyBR(totalValue)}</span> pelo Pix
+          </span>
+        )}
+        <div className="rounded-lg border-2 border-[#03d69d] p-1">
+          <Image
+            src={`https://gerarqrcodepix.com.br/api/v1?nome=${name}&cidade=${city}&saida=qr&chave=${key}&valor=${half}`}
+            alt="QR Code"
+            width={300}
+            height={300}
+          />
         </div>
-      </div>
+        <div className="flex flex-col items-center gap-2">
+          {copySuccess && <span className="text-green-600">{copySuccess}</span>}
+          <button
+            onClick={copyToClipboard}
+            className="mt-4 p-2 bg-[#133A6F] text-white rounded-lg w-fit flex flex-row text-lg"
+          >
+            Clique para copiar QR CODE <Copy className="ml-2" />
+          </button>
+          <div className="flex flex-col justify-center items-center">
+            <span className="font-semibold text-base text-[#B2B2B2]">
+              Prazo de pagamento:
+            </span>
+            <span className="font-semibold text-base">{deadline}</span>
+          </div>
+        </div>
 
-      <div className="flex flex-col items-center gap-2 w-full">
-        {totalInstallments > 1 ? (
-          <>
+        <div className="flex flex-col items-center gap-2 w-full">
+          {totalInstallments > 1 ? (
+            <>
+              <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-row items-center gap-2">
+                  <Circle color="#03d69d" />
+                  <span className="font-semibold text-base">
+                    1ª entrada no Pix
+                  </span>
+                </div>
+                <div>
+                  <span className="font-extrabold text-base">
+                    {formatToCurrencyBR(half)}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-row items-center gap-2">
+                  <Circle color="#B2B2B2" />
+                  <span className="font-semibold text-base">
+                    Restante no cartão
+                  </span>
+                </div>
+                <div>
+                  <span className="font-extrabold text-base">
+                    {formatToCurrencyBR(half)}
+                  </span>
+                </div>
+              </div>
+            </>
+          ) : (
             <div className="flex flex-row justify-between w-full">
               <div className="flex flex-row items-center gap-2">
                 <Circle color="#03d69d" />
                 <span className="font-semibold text-base">
-                  1ª entrada no Pix
+                  Pagar tudo no pix
                 </span>
               </div>
               <div>
                 <span className="font-extrabold text-base">
-                  {formatToCurrencyBR(half)}
+                  {formatToCurrencyBR(totalValue)}
                 </span>
               </div>
             </div>
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex flex-row items-center gap-2">
-                <Circle color="#B2B2B2" />
-                <span className="font-semibold text-base">
-                  Restante no cartão
-                </span>
-              </div>
-              <div>
-                <span className="font-extrabold text-base">
-                  {formatToCurrencyBR(half)}
-                </span>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-row items-center gap-2">
-              <Circle color="#03d69d" />
-              <span className="font-semibold text-base">Pagar tudo no pix</span>
-            </div>
-            <div>
-              <span className="font-extrabold text-base">
-                {formatToCurrencyBR(totalValue)}
+          )}
+        </div>
+
+        <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
+        {totalInstallments > 1 && (
+          <>
+            <div className="w-full p-1 flex flex-row justify-between items-center">
+              <span className="font-semibold text-xs">CET: 0.5%</span>
+              <span className="font-semibold text-base">
+                Total: {formatToCurrencyBR(totalValue)}
               </span>
             </div>
-          </div>
+            <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
+          </>
         )}
-      </div>
 
-      <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
-      {totalInstallments > 1 && (
-        <>
-          <div className="w-full p-1 flex flex-row justify-between items-center">
-            <span className="font-semibold text-xs">CET: 0.5%</span>
-            <span className="font-semibold text-base">
-              Total: {formatToCurrencyBR(totalValue)}
-            </span>
-          </div>
-          <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
-        </>
-      )}
+        <div className="w-full p-1 flex flex-row justify-between items-center">
+          <span className="font-extrabold text-base">Como funciona?</span>
+          <span className="font-semibold text-base">
+            <ChevronUp />
+          </span>
+        </div>
+        <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
+        {totalInstallments > 1 && (
+          <Link href={`/payment-form`}>
+            <button className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg border-[#17a17d] border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+              Seguir para o cartão
+            </button>
+          </Link>
+        )}
 
-      <div className="w-full p-1 flex flex-row justify-between items-center">
-        <span className="font-extrabold text-base">Como funciona?</span>
-        <span className="font-semibold text-base">
-          <ChevronUp />
-        </span>
+        <div className="w-full p-1 flex flex-col justify-between items-center">
+          <span className="font-semibold text-sm text-[#B2B2B2]">
+            Identificador:{" "}
+          </span>
+          <span className="font-extrabold text-sm">
+            2c1b951f356c4680b13ba1c9fc889c47
+          </span>
+        </div>
+        <Image
+          src={payment}
+          alt="Payment Illustration"
+          width={250}
+          height={36}
+          className="my-4"
+        />
       </div>
-      <div className="w-full rounded-lg h-[2px] bg-[#E5E5E5]"></div>
-      {totalInstallments > 1 && (
-        <Link href={`/payment-form`}>
-          <button className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg border-[#17a17d] border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
-            Seguir para o cartão
-          </button>
-        </Link>
-      )}
-
-      <div className="w-full p-1 flex flex-col justify-between items-center">
-        <span className="font-semibold text-sm text-[#B2B2B2]">
-          Identificador:{" "}
-        </span>
-        <span className="font-extrabold text-sm">
-          2c1b951f356c4680b13ba1c9fc889c47
-        </span>
-      </div>
-      <Image
-        src={payment}
-        alt="Payment Illustration"
-        width={250}
-        height={36}
-        className="my-4"
-      />
     </main>
   );
 }

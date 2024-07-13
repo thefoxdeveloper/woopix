@@ -22,36 +22,38 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center gap-20 p-24 bg-white">
-      <Image src={logo} alt="Woovi Logo" width={500} height={150} />
-      <div className="brutalist-container">
-        {/* <input
+    <main className="flex min-h-screen  flex-col items-center gap-20 p-24 bg-white">
+      <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
+        <Image src={logo} alt="Woovi Logo" width={500} height={150} />
+        <div className="brutalist-container">
+          {/* <input
           type="text"
           id="currentValue"
           className="brutalist-input smooth-type"
           ref={withMask("currency")}
         /> */}
-        <InputNumberFormat
-          locales="pt-BR"
-          format="currency"
-          currency="BRL"
-          id="currentValue"
-          className="brutalist-input smooth-type"
-          value={currentValue}
-          onChange={handleValueChange}
-        />
+          <InputNumberFormat
+            locales="pt-BR"
+            format="currency"
+            currency="BRL"
+            id="currentValue"
+            className="brutalist-input smooth-type"
+            value={currentValue}
+            onChange={handleValueChange}
+          />
 
-        <label className="brutalist-label uppercase">Valor da Venda</label>
+          <label className="brutalist-label uppercase">Valor da Venda</label>
+        </div>
+        <Link href={`/payment-method?value=${totalValue}`}>
+          <button className="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#03d69d] group px-8 py-2">
+            <span className="relative z-10 text-[#03d69d] group-hover:text-white text-xl duration-500">
+              Vender
+            </span>
+            <span className="absolute w-full h-full bg-[#03d69d] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
+            <span className="absolute w-full h-full bg-[#03d69d] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
+          </button>
+        </Link>
       </div>
-      <Link href={`/payment-method?value=${totalValue}`}>
-        <button className="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#03d69d] group px-8 py-2">
-          <span className="relative z-10 text-[#03d69d] group-hover:text-white text-xl duration-500">
-            Vender
-          </span>
-          <span className="absolute w-full h-full bg-[#03d69d] -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
-          <span className="absolute w-full h-full bg-[#03d69d] -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
-        </button>
-      </Link>
     </main>
   );
 }

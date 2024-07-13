@@ -41,49 +41,51 @@ export default function PaymentMethod() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8 bg-white">
-      <Image src={logo} alt="Woovi Logo" width={123} height={36} />
+      <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
+        <Image src={logo} alt="Woovi Logo" width={123} height={36} />
 
-      <span className="text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
-        João, como você quer pagar?
-      </span>
-      <RadioGroup.Root
-        onValueChange={(value) => setSelectedValue(value)}
-        className="flex flex-col w-full"
-      >
-        <div className="mb-8">
-          <PixOne
-            value={totalValue}
-            cashback={3}
-            isSelected={selectedValue === "x"}
-          />
-        </div>
+        <span className="text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+          João, como você quer pagar?
+        </span>
+        <RadioGroup.Root
+          onValueChange={(value) => setSelectedValue(value)}
+          className="flex flex-col w-full"
+        >
+          <div className="mb-8">
+            <PixOne
+              value={totalValue}
+              cashback={3}
+              isSelected={selectedValue === "x"}
+            />
+          </div>
 
-        {cardsData.map((data, index) => (
-          <PixInstallments
-            key={index}
-            value={data.value}
-            discount={data.discount}
-            index={index}
-            isFirst={index === 0}
-            isLast={index === cardsData.length - 1}
-            isSelected={selectedValue === index.toString()}
-            installments={index + 2}
-          />
-        ))}
-      </RadioGroup.Root>
+          {cardsData.map((data, index) => (
+            <PixInstallments
+              key={index}
+              value={data.value}
+              discount={data.discount}
+              index={index}
+              isFirst={index === 0}
+              isLast={index === cardsData.length - 1}
+              isSelected={selectedValue === index.toString()}
+              installments={index + 2}
+            />
+          ))}
+        </RadioGroup.Root>
 
-      <Link href={`/pix-credit-card`}>
-        <button
-          className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg
+        <Link href={`/pix-credit-card`}>
+          <button
+            className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg
         border-[#17a17d]
          border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
          active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
-        >
-          Ir para o pagamento
-        </button>
-      </Link>
+          >
+            Ir para o pagamento
+          </button>
+        </Link>
 
-      <Image src={payment} alt="Woovi Logo" width={250} height={36} />
+        <Image src={payment} alt="Woovi Logo" width={250} height={36} />
+      </div>
     </main>
   );
 }
