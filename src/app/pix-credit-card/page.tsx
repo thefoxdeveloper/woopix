@@ -66,7 +66,7 @@ export default function PaymentMethod() {
     infoAdicional: "2c1b951f356c4680b13ba1c9fc889c47",
   });
 
-  const brCode = pix.toBRCode();
+  const brCode: string = pix.toBRCode();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(brCode).then(() => {

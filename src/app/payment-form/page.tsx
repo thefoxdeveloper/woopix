@@ -171,7 +171,10 @@ export default function PaymentForm() {
               {...register("nome")}
             />
             {errors.nome && (
-              <p className="text-red-500 text-xs">{errors.nome.message}</p>
+              <p className="text-red-500 text-xs">
+                {(errors.nome.message as string) ||
+                  "Error message not available"}
+              </p>
             )}
           </div>
           <div className="input flex flex-col w-full static">
@@ -187,7 +190,10 @@ export default function PaymentForm() {
               }}
             />
             {errors.cpf && (
-              <p className="text-red-500 text-xs">{errors.cpf.message}</p>
+              <p className="text-red-500 text-xs">
+                {(errors.cpf.message as string) ||
+                  "Error message not available"}
+              </p>
             )}
           </div>
           <div className="input flex flex-col w-full static">
@@ -204,7 +210,8 @@ export default function PaymentForm() {
             />
             {errors.numeroCartao && (
               <p className="text-red-500 text-xs">
-                {errors.numeroCartao.message}
+                {(errors.numeroCartao.message as string) ||
+                  "Error message not available"}
               </p>
             )}
           </div>
@@ -223,7 +230,8 @@ export default function PaymentForm() {
               />
               {errors.vencimento && (
                 <p className="text-red-500 text-xs">
-                  {errors.vencimento.message}
+                  {(errors.vencimento.message as string) ||
+                    "Error message not available"}
                 </p>
               )}
             </div>
@@ -240,7 +248,10 @@ export default function PaymentForm() {
                 }}
               />
               {errors.cvv && (
-                <p className="text-red-500 text-xs">{errors.cvv.message}</p>
+                <p className="text-red-500 text-xs">
+                  {(errors.cvv.message as string) ||
+                    "Error message not available"}
+                </p>
               )}
             </div>
           </div>
@@ -266,7 +277,10 @@ export default function PaymentForm() {
               <option value="12">12x de {formatToCurrencyBR(half / 12)}</option>
             </select>
             {errors.parcelas && (
-              <p className="text-red-500">{errors.parcelas.message}</p>
+              <p className="text-red-500 text-xs">
+                {(errors.parcelas.message as string) ||
+                  "Error message not available"}
+              </p>
             )}
           </div>
           <button
