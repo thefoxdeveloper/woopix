@@ -5,6 +5,7 @@ import { InputNumberFormat } from "@react-input/number-format";
 import Image from "next/image";
 import logo from "./assets/Logo.svg";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Home() {
   const [currentValue, setCurrentValue] = useState<string>("");
@@ -20,6 +21,7 @@ export default function Home() {
     setCurrentValue(event.target.value);
     setTotalValue(Number(formattedNumber));
   };
+  const { toast } = useToast();
 
   return (
     <main className="flex min-h-screen  flex-col items-center gap-20 p-24 bg-white">
@@ -44,7 +46,18 @@ export default function Home() {
 
           <label className="brutalist-label uppercase">Valor da Venda</label>
         </div>
-        <Link href={`/payment-method?value=${totalValue}`}>
+        <Link
+          href={`/payment-method?value=${totalValue}`}
+          onClick={(e) => {
+            if (totalValue === 0) {
+              e.preventDefault();
+              toast({
+                variant: "destructive",
+                description: "Por favor, informe um valor.",
+              });
+            }
+          }}
+        >
           <button className="cursor-pointer font-semibold overflow-hidden relative z-100 border border-[#03d69d] group px-8 py-2">
             <span className="relative z-10 text-[#03d69d] group-hover:text-white text-xl duration-500">
               Vender
