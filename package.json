@@ -12,6 +12,7 @@
     "@brazilian-utils/brazilian-utils": "^1.0.0-rc.12",
     "@hookform/resolvers": "^3.9.0",
     "@radix-ui/react-radio-group": "^1.2.0",
+    "@radix-ui/react-toast": "^1.2.1",
     "@react-input/mask": "^1.2.5",
     "@react-input/number-format": "^1.0.27",
     "class-variance-authority": "^0.7.0",

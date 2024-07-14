@@ -136,7 +136,7 @@ export default function PaymentForm() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8 bg-white relative">
-      <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
+      <div className=" flex flex-col gap-8 items-center w-full sm:w-[450px] ">
         <div
           id="sucess"
           style={{ display: "none" }}

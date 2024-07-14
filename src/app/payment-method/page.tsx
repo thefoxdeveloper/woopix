@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import logo from "../assets/Logo.svg";
 import payment from "../assets/payment.svg";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function PaymentMethod() {
   const [totalValue, setTotalValue] = useState<number>(0);
@@ -39,12 +40,13 @@ export default function PaymentMethod() {
     };
   });
 
+  const { toast } = useToast();
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8 bg-white">
       <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
         <Image src={logo} alt="Woovi Logo" width={123} height={36} />
 
-        <span className="text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+        <span className="text-2xl font-extrabold text-[#4D4D4D] text-center    font-nunito">
           João, como você quer pagar?
         </span>
         <RadioGroup.Root
@@ -73,7 +75,20 @@ export default function PaymentMethod() {
           ))}
         </RadioGroup.Root>
 
-        <Link href={`/pix-credit-card`}>
+        <Link
+          href={`/pix-credit-card`}
+          onClick={(e) => {
+            if (!selectedValue) {
+              e.preventDefault();
+
+              toast({
+                variant: "destructive",
+
+                description: "Selecione um meio de pagamento!",
+              });
+            }
+          }}
+        >
           <button
             className="cursor-pointer transition-all bg-[#03d69d] text-white px-6 py-2 rounded-lg
         border-[#17a17d]

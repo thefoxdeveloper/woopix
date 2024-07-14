@@ -8,7 +8,10 @@ import PaymentTerm from "@/components/PaymentTerm";
 import Link from "next/link";
 import logo from "../assets/Logo.svg";
 import payment from "../assets/payment.svg";
+import { useToast } from "@/components/ui/use-toast";
+
 export default function PaymentMethod() {
+  const { toast } = useToast();
   const [totalValue, setTotalValue] = useState(0);
   const [totalInstallments, setTotalInstallments] = useState(0);
   const [copySuccess, setCopySuccess] = useState("");
@@ -76,15 +79,15 @@ export default function PaymentMethod() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8 bg-white">
-      <div className=" flex flex-col gap-20 items-center w-full sm:w-[450px] ">
+      <div className=" flex flex-col gap-8 items-center w-full sm:w-[450px] ">
         <Image src={logo} alt="Woovi Logo" width={123} height={36} />
         {totalInstallments > 0 ? (
-          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center  font-nunito">
             João, pague a entrada de
             <span>{formatToCurrencyBR(half)}</span> pelo Pix
           </span>
         ) : (
-          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center [text-shadow:_0_4px_4px_rgb(0_0_0_/_40%)] font-nunito">
+          <span className="flex flex-row flex-wrap items-center justify-center gap-1 text-2xl font-extrabold text-[#4D4D4D] text-center  font-nunito">
             João, pague o valor de
             <span>{formatToCurrencyBR(totalValue)}</span> pelo Pix
           </span>
@@ -100,7 +103,13 @@ export default function PaymentMethod() {
         <div className="flex flex-col items-center gap-2">
           {copySuccess && <span className="text-green-600">{copySuccess}</span>}
           <button
-            onClick={copyToClipboard}
+            onClick={() =>
+              toast({
+                variant: "default",
+
+                description: "Pix copiado com sucesso!",
+              })
+            }
             className="mt-4 p-2 bg-[#133A6F] text-white rounded-lg w-fit flex flex-row text-lg"
           >
             Clique para copiar QR CODE <Copy className="ml-2" />
